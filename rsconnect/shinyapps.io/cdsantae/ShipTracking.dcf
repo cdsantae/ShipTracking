@@ -1,0 +1,13 @@
+name: ShipTracking
+title: ShipTracking
+username:
+account: cdsantae
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4468498
+bundleId: 4900800
+url: https://cdsantae.shinyapps.io/ShipTracking/
+when: 1628430499.75336
+lastSyncTime: 1628430499.75336
+asMultiple: FALSE
+asStatic: FALSE
