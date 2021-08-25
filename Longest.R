@@ -96,7 +96,7 @@ Lship_server <- function(id){
                        paste("<b>Distance:</b>",
                              round(dist,2),"(m)<br/>",
                              "<b>Time elapsed:</b>",
-                             round(difftime(start,end),2),"days")),
+                             round(difftime(end,start),2),"days")),
                      labelOptions = labelOptions(permanent = TRUE))
     })
   })

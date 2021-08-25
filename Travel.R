@@ -74,8 +74,8 @@ Tship_server <- function(id){
                lon_f = c(LON[-1],last(LAT))) %>%
         rename(lat_i=LAT,lon_i=LON,start=DATETIME) %>%
         rowwise() %>%
-        mutate(dist=distVincentyEllipsoid(c(lon_f,lat_f),
-                                          c(lon_i,lat_i))) %>%
+        mutate(dist=distVincentyEllipsoid(c(lon_i,lat_i),
+                                          c(lon_f,lat_f))) %>%
         data.frame()
     })
    

@@ -1,11 +1,11 @@
 suppressPackageStartupMessages({
-  library(dplyr)
   library(geosphere)
   library(geojsonio)
+  library(fst)
+  library(dplyr)
 })
 
-data <- readRDS("R/ships.RDS") %>%
-  filter(DWT != "NA")
+data <- read.fst("R/ships.fst")
 
 ggc <- function(n,a=1) {
   hues = seq(15, 375, length = n + 1)
@@ -22,18 +22,32 @@ long_travel <- function(data,ship_name){
            end = c(DATETIME[-1],last(DATETIME)+1)) %>%
     rename(lat_i=LAT,lon_i=LON) %>%
     rowwise() %>%
-    mutate(dist=distVincentyEllipsoid(c(lon_f,lat_f),
-                                      c(lon_i,lat_i))) %>%
+    mutate(dist=distVincentyEllipsoid(c(lon_i,lat_i),
+                                      c(lon_f,lat_f))) %>%
     ungroup() %>%
     filter(dist == max(dist)) %>%
     select(SHIPNAME,ship_type,SHIP_ID,lat_i,lon_i,lat_f,lon_f,
-           FLAG,WIDTH,LENGTH,DWT,dist,AvSp,TpSp,start=DATETIME,end)
+           FLAG,WIDTH,LENGTH,DWT,dist,AvSp,TpSp,start=DATETIME,end) %>%
+    filter(end == max(end))
 }
 
 bbox <- function(data){
   data %>%
     summarise(lon1=min(lon_i),lat1=min(lat_i),
               lon2=max(lon_i),lat2=max(lat_i))
+}
+
+traffic_sail <- function(data){
+  data %>%
+    mutate(end = c(DATETIME[-1],last(DATETIME)+1),
+           lat_f = c(LAT[-1],last(LAT)),
+           lon_f = c(LON[-1],last(LAT)),
+           color=ggc(length(unique(SHIPNAME)))[factor(SHIPNAME)]) %>%
+    rename(lat_i=LAT,lon_i=LON,start=DATETIME) %>%
+    rowwise() %>%
+    mutate(dist=distVincentyEllipsoid(c(lon_i,lat_i),
+                                      c(lon_f,lat_f))) %>%
+    ungroup
 }
 
 ltime_resume <- function(data){
@@ -60,7 +74,6 @@ ltime_resume <- function(data){
            `Average Speed (kn)`=AvSp,
            `Top Speed (kn)`=TopS,
            length,width,
-           `Deadweight (ton)`=DWT) %>%
-    data.frame()
+           `Deadweight (ton)`=DWT)
 }
 

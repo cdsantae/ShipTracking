@@ -54,15 +54,7 @@ TRship_server <- function(id){
         filter(date==input$TR_date,
                PORT==input$TR_port,
                ship_type==input$TRship_type) %>%
-        mutate(end = c(DATETIME[-1],last(DATETIME)+1),
-               lat_f = c(LAT[-1],last(LAT)),
-               lon_f = c(LON[-1],last(LAT)),
-               color=ggc(length(unique(SHIPNAME)))[factor(SHIPNAME)]) %>%
-        rename(lat_i=LAT,lon_i=LON,start=DATETIME) %>%
-        rowwise() %>%
-        mutate(dist=distVincentyEllipsoid(c(lon_f,lat_f),
-                                          c(lon_i,lat_i))) %>%
-        ungroup
+        traffic_sail()
     })
     
     output$tab_resume <- renderDataTable({
