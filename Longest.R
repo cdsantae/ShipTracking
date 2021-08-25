@@ -39,13 +39,13 @@ Lship_server <- function(id){
     )
     
     update_dropdown_input(session, "Lship_type",
-                          choices = unique(data$ship_type))
+                          choices = sort(unique(data$ship_type)))
     observe({
       req(input$Lship_type)
       LS_data <- data %>%
         filter(ship_type == input$Lship_type)
       update_dropdown_input(session,"Lship_name",
-                            choices = unique(LS_data$SHIPNAME))
+                            choices = sort(unique(LS_data$SHIPNAME)))
     })
     Lselect_info <- reactive({
       req(input$Lship_name)
@@ -96,7 +96,7 @@ Lship_server <- function(id){
                        paste("<b>Distance:</b>",
                              round(dist,2),"(m)<br/>",
                              "<b>Time elapsed:</b>",
-                             round(difftime(end,start),2),"days")),
+                             round(dift,2),units(dift))),
                      labelOptions = labelOptions(permanent = TRUE))
     })
   })

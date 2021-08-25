@@ -27,9 +27,10 @@ long_travel <- function(data,ship_name){
                                       c(lon_f,lat_f))) %>%
     ungroup() %>%
     filter(dist == max(dist)) %>%
-    select(SHIPNAME,ship_type,SHIP_ID,lat_i,lon_i,lat_f,lon_f,
-           FLAG,WIDTH,LENGTH,DWT,dist,AvSp,TpSp,start=DATETIME,end) %>%
-    filter(end == max(end))
+    select(SHIPNAME,ship_type,SHIP_ID,lat_i,lon_i,lat_f,lon_f,FLAG,
+           WIDTH,LENGTH,DWT,dist,AvSp,TpSp,start=DATETIME,end) %>%
+    filter(end == max(end)) %>%
+    mutate(dift=difftime(end,start))
 }
 
 bbox <- function(data){

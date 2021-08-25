@@ -5,9 +5,9 @@ account: cdsantae
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4468498
-bundleId: 4963573
+bundleId: 4963600
 url: https://cdsantae.shinyapps.io/ShipTracking/
-when: 1629909490.12349
-lastSyncTime: 1629909490.12349
+when: 1629909898.14531
+lastSyncTime: 1629909898.14531
 asMultiple: FALSE
 asStatic: FALSE

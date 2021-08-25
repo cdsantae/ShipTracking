@@ -22,12 +22,9 @@ ui <- semanticPage(
     title = "Ship Tracking Dashboard",
     h1("Ship Tracking Dashboard",align = "center"),
     tags$head(
-        tags$link(rel="stylesheet", href="style.css", type="text/css")
-    ),
-    setBackgroundColor(
-        color = c("#FFFFFF", "#BFA3A3"),
-        gradient = "linear",
-        direction = "bottom"
+        tags$link(rel="stylesheet", href="style.css", type="text/css"),
+        tags$style(HTML(paste0("body{background-color: #b8d6db;",
+            "background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png')")))
     ),
     horizontal_menu(
         list(

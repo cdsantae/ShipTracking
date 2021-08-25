@@ -37,7 +37,7 @@ TRship_server <- function(id){
     update_dropdown_input(session, "TR_date",
                           choices = sort(as.character(unique(data$date))))
     update_dropdown_input(session, "TR_port",
-                          choices = unique(data$PORT))
+                          choices = sort(unique(data$PORT)))
     
     observe({
       req(input$TR_port,input$TR_date)
@@ -45,7 +45,7 @@ TRship_server <- function(id){
         filter(date == input$TR_date,
                PORT == input$TR_port)
       update_dropdown_input(session,"TRship_type",
-                            choices = unique(TR_data$ship_type))
+                            choices = sort(unique(TR_data$ship_type)))
     })
     
     TRselect_info <- reactive({

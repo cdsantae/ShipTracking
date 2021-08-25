@@ -40,7 +40,7 @@ Tship_server <- function(id){
     update_dropdown_input(session, "T_date",
                           choices = sort(as.character(unique(data$date))))
     update_dropdown_input(session,"T_port",
-                          choices = unique(data$PORT))
+                          choices = sort(unique(data$PORT)))
     
     observe({
       req(input$T_date, input$T_port)
@@ -48,7 +48,7 @@ Tship_server <- function(id){
         filter(date == input$T_date,
                PORT == input$T_port)
       update_dropdown_input(session,"Tship_type",
-                            choices = unique(T_data$ship_type))
+                            choices = sort(unique(T_data$ship_type)))
     })
     
     observe({
@@ -58,7 +58,7 @@ Tship_server <- function(id){
                PORT == input$T_port,
                ship_type == input$Tship_type)
       update_dropdown_input(session,"Tship_name",
-                            choices = unique(T_data$SHIPNAME))
+                            choices = sort(unique(T_data$SHIPNAME)))
     })
     
     Tselect_info <- reactive({
