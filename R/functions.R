@@ -5,7 +5,8 @@ suppressPackageStartupMessages({
   library(dplyr)
 })
 
-data <- read.fst("R/ships.fst")
+data <- read.fst("R/ships.fst") %>%
+  arrange(DATETIME)
 
 ggc <- function(n,a=1) {
   hues = seq(15, 375, length = n + 1)
